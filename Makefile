@@ -4,10 +4,10 @@ clean:
 	rm -rf ./bin
 
 build: clean
-	GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -a -o ./bin/directus-extension-copy.linux-amd64 ./main.go
-	GOOS=darwin GOARCH=amd64 go build -ldflags="-w -s" -a -o ./bin/directus-extension-copy.darwin-amd64 ./main.go
-	upx --brute bin/directus-extension-copy.linux-amd64
-	upx --brute bin/directus-extension-copy.darwin-amd64
+	GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -a -o ./bin/wacp.linux-amd64 ./main.go
+	GOOS=darwin GOARCH=amd64 go build -ldflags="-w -s" -a -o ./bin/wacp.darwin-amd64 ./main.go
+	upx --brute bin/wacp.linux-amd64
+	upx --brute bin/wacp.darwin-amd64
 
 # Example: make release V=0.0.0
 release:
