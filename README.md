@@ -23,3 +23,9 @@ Usage: wacp -src <source path> -dest <destination path>
   -src  extension entrypoint source (optional). Default: ./dist/index.js
   -dest extension entrypoint destination (required)
 ```
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
+
+Copyright (c) 2022-present, Thien Nguyen
