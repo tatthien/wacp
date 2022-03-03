@@ -18,7 +18,7 @@ func main() {
 
 	if flag.NFlag() == 0 {
 		// print usage
-		fmt.Println("Usage: directus-extension-copy -src -dest")
+		fmt.Println("Usage: wacp -src -dest")
 		fmt.Println("\t-src  extension entrypoint source (optional). Default: ./dist/index.js")
 		fmt.Println("\t-dest extension entrypoint destination (required)")
 		return
