@@ -3,13 +3,13 @@ This cli tool watches a provided source file changes and copies to the provided 
 ## Installation
 
 ```
-$ go get github.com/tatthien/directus-extension-copy
+go get github.com/tatthien/directus-extension-copy
 ```
 
 For non-Go users
 
 ```
-$ curl -sf https://gobinaries.com/tatthien/directus-extension-copy | sh
+curl -sf https://gobinaries.com/tatthien/directus-extension-copy | sh
 ```
 
 ## Usage
