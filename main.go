@@ -3,16 +3,17 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"os"
+	"os/exec"
+	"strings"
 
 	"github.com/fsnotify/fsnotify"
 )
 
 func main() {
 	src := flag.String("src", "./dist/index.js", "index.js source")
-	dest := flag.String("dest", "", "index.js destination")
+	onChange := flag.String("onChange", "", "command to be executed after file change")
 
 	flag.Parse()
 
@@ -20,7 +21,7 @@ func main() {
 		// print usage
 		fmt.Println("Usage: wacp -src -dest")
 		fmt.Println("\t-src  extension entrypoint source (optional). Default: ./dist/index.js")
-		fmt.Println("\t-dest extension entrypoint destination (required)")
+		fmt.Println("\t-onChange command to be executed after file change")
 		return
 	}
 
@@ -40,12 +41,12 @@ func main() {
 				}
 
 				if event.Op&fsnotify.Write == fsnotify.Write {
-					fmt.Printf("🕐copying %s to %s\n", *src, *dest)
-					_, err := copyFile(*src, *dest)
-					if err != nil {
-						return
+					args := strings.Split(*onChange, " ")
+					cmd := exec.Command(args[0], args[1:]...)
+					cmd.Stdout = os.Stdout
+					if err := cmd.Run(); err != nil {
+						log.Fatal(err)
 					}
-					fmt.Printf("✅copied %s to %s\n", *src, *dest)
 				}
 			case err, ok := <-watcher.Errors:
 				if !ok {
@@ -56,7 +57,7 @@ func main() {
 		}
 	}()
 
-	fmt.Printf("👁️ watching file `%s` for changes...\n", *src)
+	log.Println("watching file for changes...")
 
 	err = watcher.Add(*src)
 	if err != nil {
@@ -64,20 +65,4 @@ func main() {
 	}
 
 	<-done
-}
-
-func copyFile(src, dest string) (int64, error) {
-	srcFile, err := os.Open(src)
-	if err != nil {
-		return 0, err
-	}
-	defer srcFile.Close()
-
-	destFile, err := os.Create(dest)
-	if err != nil {
-		return 0, err
-	}
-	defer destFile.Close()
-
-	return io.Copy(destFile, srcFile)
 }
