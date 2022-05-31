@@ -41,6 +41,8 @@ func main() {
 				}
 
 				if event.Op&fsnotify.Write == fsnotify.Write {
+					log.Println("file changed:", event.Name)
+
 					args := strings.Split(*onChange, " ")
 					cmd := exec.Command(args[0], args[1:]...)
 					cmd.Stdout = os.Stdout
