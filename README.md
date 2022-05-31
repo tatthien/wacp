@@ -1,8 +1,6 @@
 # wacp
 
-This cli tool watches a provided source file changes and copies to the provided destination.
-
-`wacp` = Watch & copy. Is it simple?
+This cli tool watches all changes from a file and executes a provide command.
 
 ## Installation
 
